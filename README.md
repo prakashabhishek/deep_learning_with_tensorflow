@@ -1,2 +1,4 @@
 # tensorflow_course_udemy
-Build a regression model using Tensorflow
+* Tensorflow basics
+* Regression model using Tensorflow
+* Classification model using Tensorflow
