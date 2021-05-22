@@ -87,7 +87,7 @@ def prep_image_and_make_prediction(model, test_image_path, train_data_dir, train
     """
     
     data_dir = pathlib.Path(train_data_dir)
-    class_names = {v:k for k,v in train_data.class_indices.items()}
+    class_names = {v:k for k,v in train_datagenerator.class_indices.items()}
     
     # Read in the image
     img = tf.io.read_file(test_image_path)
@@ -105,10 +105,10 @@ def prep_image_and_make_prediction(model, test_image_path, train_data_dir, train
         img = tf.expand_dims(img, axis = 0)  # add 1 extra dimension for number of batches
         
     pred = model.predict(img)
-    pred_class = class_names[int(tf.round(pred))]
+    pred_class = class_names[np.argmax(pred)]
     
     plt.imshow(tf.squeeze(img))
-    plt.title(f'Prediction: {pred_class} ({np.round(model.predict(img).item(), 2)})')
+    plt.title(f'Prediction: {pred_class} ({np.round(pred.max(), 2)})')
     plt.axis(False)
     plt.show()
     
