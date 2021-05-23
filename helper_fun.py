@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import random
 import pathlib
+import datetime
 import tensorflow as tf
 print(f'Using tensorflow version: {tf.__version__}')
 
@@ -78,7 +79,7 @@ def view_random_image(target_dir, target_class = None):
     print(f'Image shape: {img.shape}') # Show the shape of image
     
     
-def prep_image_and_make_prediction(model, test_image_path, train_data_dir, train_datagenerator, img_shape = 244):
+def prep_image_and_make_prediction(model, test_image_path, train_data_dir, img_shape = 244):
     """
     **This works for single image at time**
     
@@ -86,8 +87,8 @@ def prep_image_and_make_prediction(model, test_image_path, train_data_dir, train
     then reshapes it to (img_shape, img_shape, color_channel)
     """
     
-    data_dir = pathlib.Path(train_data_dir)
-    class_names = {v:k for k,v in train_datagenerator.class_indices.items()}
+    data_dir = pathlib.Path(target_dir)
+    class_names = np.array(sorted([item.name for item in train_data_dir.glob('*')]))
     
     # Read in the image
     img = tf.io.read_file(test_image_path)
