@@ -8,6 +8,7 @@ import datetime
 import tensorflow as tf
 print(f'Using tensorflow version: {tf.__version__}')
 
+import tensorflow_hub as hub
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Conv2D, Dense, MaxPool2D, Flatten
 from tensorflow.keras.losses import BinaryCrossentropy, CategoricalCrossentropy
@@ -18,6 +19,43 @@ from sklearn.model_selection import train_test_split
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+
+def unzip_data(file_path):
+    """
+    Unzips files to current directory
+    """
+    
+    zip_ref = zipfile.ZipFile(file_path)
+    zip_ref.extractall()
+    zip_ref.close()
+
+
+def walk_through_dir(dir_path):
+    """
+    Walks through dir_path returning its contents.
+    Args:
+    dir_path (str): target directory
+
+    Returns:
+    A print out of:
+      number of subdiretories in dir_path
+      number of images (files) in each subdirectory
+      name of each subdirectory
+    """
+    for dirpath, dirnames, filenames in os.walk(dir_path):
+        print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
+
+
+def create_tensorboard_callback(dir_name, experiment_name):
+    """
+    Creates tensorboard callback to be monitor the model's performance
+    """
+    log_dir = os.path.join(dir_name, experiment_name, datetime.datetime.now().strftime('%Y%m%d_%H%M%S'))
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir= log_dir)
+    print(f'Saving tensorboard log files to {log_dir}')
+    
+    return tensorboard_callback
+
 
 
 def plot_history(history):
