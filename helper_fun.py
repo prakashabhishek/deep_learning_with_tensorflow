@@ -9,7 +9,7 @@ import tensorflow as tf
 print(f'Using tensorflow version: {tf.__version__}')
 
 import tensorflow_hub as hub
-from tensorflow.keras import Sequential
+from tensorflow.keras import Sequential, layers, losses, optimizers
 from tensorflow.keras.layers import Conv2D, Dense, MaxPool2D, Flatten
 from tensorflow.keras.losses import BinaryCrossentropy, CategoricalCrossentropy
 from tensorflow.keras.optimizers import SGD, Adam
@@ -19,6 +19,23 @@ from sklearn.model_selection import train_test_split
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+
+def evaluate_model(y_true, y_pred):
+    """
+    Evaluate the model and return 
+    Precision, Recall, F1 score and Accuracy
+    """
+    accuracy = np.round(accuracy_score(y_true, y_pred) * 100, 2)
+    precision, recall, f1_score, _ = precision_recall_fscore_support(y_true, y_pred, average= 'weighted')
+    
+    model_results = {"accuracy": accuracy,
+                    "precision": np.round(precision*100, 2),
+                    "recall": np.round(recall*100, 2),
+                    "f1 score": np.round(f1_score*100,2)}
+    
+    return model_results
+
+
 
 def unzip_data(file_path):
     """
