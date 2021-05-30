@@ -5,3 +5,8 @@ pizza_steak/
 10_food_classes_10_percent/
 10_food_classes_1_percent/
 *.png
+checkpoints/
+nlp_getting_started/
+nlp_models/
+transfer_learning_logs/
+transfer_learning_checkpoints/
