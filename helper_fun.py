@@ -19,6 +19,7 @@ from sklearn.model_selection import train_test_split
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import sklearn
 
 
 # Our function needs a different name to sklearn's plot_confusion_matrix
